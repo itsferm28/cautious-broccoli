@@ -1,0 +1,82 @@
+// Estructura general del proyecto Angular solicitada
+
+// 1. INSTALACIÓN DE BOOTSTRAP
+// Ejecutar en consola:
+// npm install bootstrap
+
+// 2. Importación de Bootstrap en estilos globales (src/styles.css):
+/* src/styles.css */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+// 3. Componente principal que contiene un listado y formulario
+// src/app/listado/listado.component.ts
+import { Component, HostBinding } from '@angular/core';
+
+@Component({
+  selector: 'app-listado',
+  templateUrl: './listado.component.html'
+})
+export class ListadoComponent {
+  // 4. @HostBinding para modificar una clase del host
+  @HostBinding('class') hostClass = 'p-4 bg-light';
+
+  // 5. Array de elementos a mostrar
+  elementos = [
+    { nombre: 'Elemento 1', descripcion: 'Descripción 1' },
+    { nombre: 'Elemento 2', descripcion: 'Descripción 2' }
+  ];
+
+  // 6. Función para agregar un nuevo elemento al array
+  agregarElemento(nombre: string, descripcion: string) {
+    if (nombre && descripcion) {
+      this.elementos.push({ nombre, descripcion });
+    }
+  }
+}
+
+// 7. Template HTML del componente
+// src/app/listado/listado.component.html
+/*
+<div class="container">
+  <h2 class="mb-4">Listado de Elementos</h2>
+
+  <!-- Formulario con variables de plantilla (#) -->
+  <form (submit)="agregarElemento(nombreInput.value, descripcionInput.value); nombreInput.value=''; descripcionInput.value=''; $event.preventDefault();">
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input #nombreInput id="nombre" class="form-control" type="text" required>
+    </div>
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <input #descripcionInput id="descripcion" class="form-control" type="text" required>
+    </div>
+    <button class="btn btn-primary" type="submit">Agregar</button>
+  </form>
+
+  <!-- Listado con *ngFor -->
+  <ul class="list-group mt-4">
+    <li class="list-group-item" *ngFor="let item of elementos">
+      <strong>{{ item.nombre }}</strong>: {{ item.descripcion }}
+    </li>
+  </ul>
+</div>
+*/
+
+// 8. Declarar el componente en el módulo principal (src/app/app.module.ts)
+/*
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { ListadoComponent } from './listado/listado.component';
+
+@NgModule({
+  declarations: [AppComponent, ListadoComponent],
+  imports: [BrowserModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+*/
+
+// 9. Uso del componente en app.component.html
+// <app-listado></app-listado>
